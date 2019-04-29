@@ -1,27 +1,175 @@
-## Laravel PHP Framework
+#一、系统登录
+请在您的电脑上使用浏览器打开如下地址：
+http://meapp.scuplatform.com
+输入您的用户名（即手机号）和密码（初始密码为 ******** ）进行登录，完成登录后您可点击系统右上方的用户菜单进行修改密码、注销登录等操作。
+**如果需要新增用户账号，或忘记密码需要重置密码，请与 LCFC 的系统管理员联系。**
+>建议使用谷歌、360、QQ 等主流浏览器访问系统，可以获得更加流畅的体验，不建议使用 IE。
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+#二、通用说明
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+##用户的角色
+系统的主要用户分为三类：LCFC、一级供应商、二级供应商。
+不同的用户拥有不同的功能菜单、操作界面和权限。通常情况下用户登录系统之后可以被自动识别相应的角色和权限。
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+##首页内容
+登录系统之后的首页将会有一些您需要处理的数据提示，您可以直接点击相关信息进入对应的页面进行进一步的工作处理。
+![首页.png](https://upload-images.jianshu.io/upload_images/14524235-ea73dc8006e75415.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+这里的信息内容主要包括：
+- 需要您接收的新订单（二级供应商）
+- 需要您确认的订单变更（二级供应商）
+- 可能需要您进行交货确认的订单（一级供应商）
+- 与您相关的订单的最新动态（所有）
 
-## Official Documentation
+##邮件提醒
+当用户在系统内进行特定的操作时，将会触发邮件通知功能。
+操作人|操作内容|邮件通知人|
+--|--|--
+一级供应商|创建或导入新订单|二级供应商
+二级供应商|接收订单|一级供应商
+一级供应商|发起订单变更|二级供应商
+二级供应商|确认或拒绝订单变更|一级供应商
+一级供应商|订单结束|二级供应商
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+#三、主数据管理
 
-## Contributing
+##自有料号
+**此功能仅为一级供应商所使用。**
+![自有料号.png](https://upload-images.jianshu.io/upload_images/14524235-3a39f9c1573a7a0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+每家一级供应商需要在此功能内维护所有的自有料号信息，维护的数据需要满足以下条件：
+- 自有料号不能重复
+- 每个自有料号都需要维护与之相对应的联宝料号
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+联宝料号已经由LCFC在系统内预先设置，一级供应商只需按料号检索选择即可。
+>后续下单操作中的物料选择即来源于此处维护的自有料号信息。
 
-## Security Vulnerabilities
+#四、发起的订单
+**此功能仅为一级供应商所使用。**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+##发起订单
+发起订单有两种方式：直接在系统内创建、使用 EXCEL 导入。
 
-### License
+###1.创建订单
+![创建订单.png](https://upload-images.jianshu.io/upload_images/14524235-84e955833da1d424.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+操作步骤如下：
+- 点击画面右侧的新建按钮
+- 输入订单号、二级供应商、交货日期
+- 点击“物料需求明细”后的加号，添加一条需求明细
+- 选择物料，并输入需求数量
+- 重复添加物料直到所有的需求都已录入
+- 点击左上方的保存，完成创建订单的操作
+>选择不同的二级供应商，在“物料需求明细”中可选择的物料不同。
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+###2.导入订单
+![导入订单.png](https://upload-images.jianshu.io/upload_images/14524235-93d150baf955c7b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+操作步骤如下：
+- 点击画面右侧的导入按钮
+- 在打开的窗口中点击“下载导入模板”，下载模板 EXCEL 表格
+- 按照 EXCEL 的格式准备好需要导入的数据（带红色*号为必填）
+- 选择 EXCEL 文件，执行导入，提示成功即完成
+>同一 EXCEL 内可以录入多笔订单的数据，一次性进行导入
+
+##编辑或删除订单
+当您完成订单的创建或导入之后，并且在相应的二级供应商接收此订单之前，订单的状态为`新下单`。此时您可以对订单进行编辑或删除的操作。
+编辑订单的界面与创建订单完全相同，此处不再做赘述。
+
+##订单变更
+![订单变更1.png](https://upload-images.jianshu.io/upload_images/14524235-9e62700b00980bc2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![订单变更2.png](https://upload-images.jianshu.io/upload_images/14524235-dad0c8f329ea3705.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+当您完成订单的创建或导入之后，如果相应的二级供应商已经接收了此订单，那么您将无法再对此订单进行编辑或删除的操作，如果因为某些原因需要修改订单内的物料需求数量，需要执行订单变更操作。
+订单变更操作的步骤为：
+- 找到你需要变更的订单
+- 点击操作列的“详情”按钮，进入订单详情界面
+- 点击画面右侧的“订单变更”按钮
+- 在打开的对话框中输入变更原因并点击“继续变更”
+- 此时物料明细列表中的“变更需求数量”列变为可编辑状态，输入变更后的需求数量
+- 对所有需要变更的物料需求数量进行调整之后，点击保存即可
+>保存完成后，订单的状态将变更为`变更中`，此时您无法再对订单进行任何操作，需要等待二级供应商对变更进行处理。
+>变更后物料数量必须**大于等于**二级供应商已经维护的交货数量。
+
+##订单结束
+当订单的交货和接收已经全部执行完成后，一级供应商应对此订单进行“订单结束”的操作，表示订单已经完成。
+![订单结束.png](https://upload-images.jianshu.io/upload_images/14524235-58c7693632f72c8b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+订单结束操作的步骤为：
+- 找到你需要变更的订单
+- 点击操作列的“详情”按钮，进入订单详情界面
+- 点击画面右侧的“订单结束”按钮
+- 操作完成后订单状态变更为`已完成`
+>针对一笔订单，只能进行一次“订单结束”操作，请务必在完成了交货数据核对后再进行操作。
+>在订单为`已接收`状态时，都可以进行“订单结束”操作，系统**并不检核**是否存在交货数据，或者要求交货数据与需求数量必须完全一致。
+
+#五、收到的订单
+**此功能仅为二级供应商所使用。**
+
+##接收订单
+![接收订单.png](https://upload-images.jianshu.io/upload_images/14524235-8289e46b3237b653.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+操作步骤如下：
+- 找到你需要接收的订单
+- 点击操作列的“详情”按钮，进入订单详情界面
+- 确认客户的物料需求没有问题可以接受
+- 点击画面右侧的“接收订单”按钮
+- 接收订单之后，订单状态将由`新下单`变为`已接收`
+>如果对订单有疑问不可操作接收的，请直接与客户线下沟通，客户可对订单进行编辑或删除操作。
+
+##订单变更的确认或拒绝
+![变更处理.png](https://upload-images.jianshu.io/upload_images/14524235-0e98a0363109fbb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+操作步骤如下：
+- 找到你需要确认变更的订单
+- 点击操作列的“详情”按钮，进入订单详情界面
+- 此界面中，客户对于订单变更的物料数量将以`红色`显著标识出来
+- 依据实际需求，点击画面右侧的“确认变更”或“拒绝变更”按钮
+- 如果确认变更，则客户对订单的修改即可生效
+- 如果拒绝变更，需要对拒绝的原因进行特别说明，**拒绝之后订单将还原回变更之前的状态**
+>在订单详情界面的“操作日志”卡片中，可以看到该订单操作或变更的历史记录以及明细信息。
+
+##订单交货
+订单交货有两种方式：直接在系统内维护交货、使用 EXCEL 导入。
+>只有`已接收`状态的订单才可交货，对于未接收的订单、变更未确认的订单、已结束的订单，不允许进行交货操作
+
+###1.维护交货
+![交货维护.png](https://upload-images.jianshu.io/upload_images/14524235-4f06d4efd7cfb9e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+操作步骤如下：
+- 找到你需要确认变更的订单，进入订单详情界面
+- 点击画面右侧的“交货维护”按钮
+- 维护交货日期，交货单号（非必填）
+- 维护物料的交货数量
+- 保存完成之后，订单明细界面的已交货数量会实时更新
+>同一订单支持维护多次交货数据，每一物料的交货数量合计不可大于需求数量。
+
+###2.导入交货
+操作步骤如下：
+- **在“收到的订单”界面**，点击右上角的“交货导入”按钮
+- 在打开的窗口中点击“下载导入模板”，下载模板 EXCEL 表格
+- 按照 EXCEL 的格式准备好需要导入的数据（带红色*号为必填）
+- 选择 EXCEL 文件，执行导入，提示成功即完成
+>同一 EXCEL 内可以填写多笔订单的交货数据，一次性进行导入
+
+##交货数据修改
+![交货修改.png](https://upload-images.jianshu.io/upload_images/14524235-cbfa7ea5c67dbf5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+因为某些原因需要对已经维护的个别交货数据需要进行修改的，可使用此功能。
+- 找到你需要更改交货数据的订单，进入订单详情界面
+- 点击画面上方的“交货明细”卡片
+- 检索到你需要更改的那一笔交货记录，点击后面的“编辑”按钮
+- 输入你要更改为的交货数量，点击确认提交
+
+#六、订单明细查询
+**此功能为一、二级供应商共同所使用。**
+此界面所查询的列表，可以直接显示订单信息、物料明细和交货数据。因此，同一订单在此列表内会存在多行不同物料的数据。
+![订单明细查询.png](https://upload-images.jianshu.io/upload_images/14524235-fb85fa2354669525.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+您也可以直接按照订单、物料、下单日期等筛选条件进行查询您所需要的数据，同时系统还支持导出 EXCEL 表格供您进行进一步的数据处理和分析。
+>此界面您只能查看到与您相关的订单数据（您发起的订单或收到的订单）。
+
+#七、退货信息
+**此功能为一、二级供应商共同所使用。**
+**一级供应商可以创建或导入退货信息，二级供应商只能查询此数据。**
+![退货信息列表.png](https://upload-images.jianshu.io/upload_images/14524235-37db265fbd7b8df9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+创建退货信息：
+- 点击右上角的“新建按钮”
+- 输入相关字段信息点击保存即可
+![退货维护.png](https://upload-images.jianshu.io/upload_images/14524235-e425394bd4ab6a82.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+退货信息导入步骤与订单导入类似，先下载模板，以模板格式准备好数据导入即可，此处不再赘述。
+>退货数据仅仅是通过系统记录，用于 LCFC 端的数据分析使用，此处的退货数据不要求与订单进行关联，也不会影响到订单的任何数据。
+
+#八、支持与帮助
+本系统由 **合肥智慧云上信息技术有限公司** 提供技术支持。
+联系电话：151 5512 1354
+邮箱：service@scuplatform.com
